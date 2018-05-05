@@ -37,9 +37,9 @@ class registerCheck {
         var bool=true
 if (!acclist.isEmpty()) {
     while (acclist.size > count1) {
-        if (acclist.get(count1).username == acc.username
-                || acclist.get(count1).password == acc.password
-                || acclist.get(count1).email == acc.email) {
+        if (acclist[count1].username == acc.username
+                || acclist[count1].password == acc.password
+                || acclist[count1].email == acc.email) {
 
 
             bool = false

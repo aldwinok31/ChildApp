@@ -41,6 +41,8 @@ class register : AppCompatActivity (){
                 this.email = findViewById(R.id.email)
 
                if(isvalidAcc() && isSame() ){
+                   Toast.makeText(this@register, "You Can Log in now",
+                           Toast.LENGTH_LONG).show()
                    if(isvalidPass()) {
                        var newacc = User(_idGenerator().getNewId(), this.user!!.text.toString(),
                                this.pass!!.text.toString(),
@@ -108,7 +110,6 @@ class register : AppCompatActivity (){
     fun isvalidAcc():Boolean{
 
         var bool = false
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
 
         if(this.user!!.text .toString()!="" &&
                 this.pass!!.text.toString() !="" &&
@@ -157,7 +158,7 @@ fun isvalidPass():Boolean{
 
 
     fun isSame():Boolean{
-        var bool = false
+        var bool = true
 
         if(this.user!!.text.toString() == this.pass!!.text.toString()){
 
