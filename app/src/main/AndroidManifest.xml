@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Account.AppBlock._Parent_App">
+        <activity android:name=".Account.AppBlock.Parent_App._Parent_App">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -2,6 +2,7 @@ package aldwin.tablante.com.appblock.Account.Model
 
 import android.util.Patterns
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.util.regex.Pattern
@@ -18,15 +19,7 @@ class registerCheck {
     // Creating a New Account
     fun registerNewAccount(a:User){
 
-
-        this.database = FirebaseDatabase.getInstance()
-        this.dataref = this.database.getReference("Accounts")
-        val accID = this.dataref.push().key
-        val acc = User(a.accID,a.username.toLowerCase(),
-                a.password.toLowerCase(),
-                a.email.toLowerCase() )
-        dataref.child(accID).setValue(acc)
-
+loginToFirebase()
 
 
     }
@@ -39,10 +32,11 @@ if (!acclist.isEmpty()) {
     while (acclist.size > count1) {
         if (acclist[count1].username == acc.username
                 || acclist[count1].password == acc.password
-                || acclist[count1].email == acc.email) {
+                || acclist[count1].email == acc.email || acclist[count1].codd == acc.codd) {
 
 
             bool = false
+            break
         }
 
         count1++
@@ -70,5 +64,12 @@ return bool
     }
 
 
+    fun loginToFirebase(){
 
+        val email = "vincent@yahoo.com"
+        val password ="123456"
+
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
+
+    }
 }

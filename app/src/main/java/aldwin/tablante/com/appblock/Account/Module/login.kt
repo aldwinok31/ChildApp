@@ -1,6 +1,6 @@
 package aldwin.tablante.com.appblock.Account.Module
 
-import aldwin.tablante.com.appblock.Account.AppBlock._Parent_App
+import aldwin.tablante.com.appblock.Account.AppBlock.Parent_App._Parent_App
 import aldwin.tablante.com.appblock.Account.Fetcher.a_Fetch
 import aldwin.tablante.com.appblock.Account.Model.User
 import aldwin.tablante.com.appblock.Account.Model.loginCheck
@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * Created by Bobby on 03/05/2018.
@@ -20,12 +21,13 @@ class login : AppCompatActivity(){
     private var submit : Button? = null
     private var username: EditText? = null
     private var password: EditText? = null
+    private var loginacc : User? =  null
     private var acclist: ArrayList<User> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_acc)
 
-
+loginToFirebase()
 
         username = findViewById(R.id.editText)
         password = findViewById(R.id.editText2)
@@ -37,7 +39,8 @@ class login : AppCompatActivity(){
           if(loginCheck().isFilled(this.username!!.text.toString(),this.password!!.text.toString())) {
               if (isExist()) {
                   val intent = Intent(this, _Parent_App::class.java)
-                  intent.putExtra("","")
+
+                  intent.putExtra("id",this.id)
                   startActivity(intent)
 
               }
@@ -69,9 +72,10 @@ class login : AppCompatActivity(){
                     this.password!!.text!!.toString() == this.acclist[count].password
             ){
 
-                Toast.makeText(this@login, this.acclist[count].username,
+                Toast.makeText(this@login, "Welcome",
                         Toast.LENGTH_LONG).show()
                this.id = this.acclist[count].accID
+                this.loginacc = this.acclist[count]
                 bool = true
             }
 
@@ -85,4 +89,13 @@ class login : AppCompatActivity(){
 
 
 
+
+    fun loginToFirebase(){
+
+        val email = "vincent@yahoo.com"
+        val password ="123456"
+
+FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
+
+    }
 }

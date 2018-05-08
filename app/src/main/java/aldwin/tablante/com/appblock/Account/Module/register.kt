@@ -12,7 +12,9 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.register_acc.*
 
 /**
  * Created by Bobby on 03/05/2018.
@@ -24,13 +26,17 @@ class register : AppCompatActivity (){
     private var conpass: EditText?=null
     private var reg : Button?=null
     private var email: EditText?=null
+    private var code:EditText?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register_acc)
 
-
+loginToFirebase()
         this.reg = findViewById(R.id.register)
         var accounts =a_Fetch().getAccounts()
+        login.setOnClickListener { val intent = Intent(this, login::class.java)
+            startActivity(intent) }
+
         this.reg!!.setOnClickListener {
 
 
@@ -39,14 +45,15 @@ class register : AppCompatActivity (){
                 this.pass = findViewById(R.id.password)
                 this.conpass = findViewById(R.id.confirmpassword)
                 this.email = findViewById(R.id.email)
-
+ this.code = findViewById(R.id.code)
                if(isvalidAcc() && isSame() ){
-                   Toast.makeText(this@register, "You Can Log in now",
-                           Toast.LENGTH_LONG).show()
+               
                    if(isvalidPass()) {
                        var newacc = User(_idGenerator().getNewId(), this.user!!.text.toString(),
                                this.pass!!.text.toString(),
-                               this.email!!.text.toString())
+                               this.email!!.text.toString(),
+                               this.code!!.text.toString()
+                               )
 
 
                        if( registerCheck().checkacc(newacc,accounts)){
@@ -169,4 +176,12 @@ fun isvalidPass():Boolean{
         return bool
     }
 
+    fun loginToFirebase(){
+
+        val email = "vincent@yahoo.com"
+        val password ="123456"
+
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
+
+    }
 }

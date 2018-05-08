@@ -50,11 +50,11 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login: "
+            android:layout_gravity="center"
+            android:text="Username: "
+            android:textAlignment="center"
             android:textColor="#FFF"
             android:textSize="16dp"
-            android:layout_gravity="center"
-            android:textAlignment="center"
 
             />
 
