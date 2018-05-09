@@ -27,6 +27,8 @@ class register : AppCompatActivity (){
     private var reg : Button?=null
     private var email: EditText?=null
     private var code:EditText?= null
+    private var firstname:EditText? = null
+    private var lastname : EditText? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register_acc)
@@ -34,13 +36,14 @@ class register : AppCompatActivity (){
 loginToFirebase()
         this.reg = findViewById(R.id.register)
         var accounts =a_Fetch().getAccounts()
-        login.setOnClickListener { val intent = Intent(this, login::class.java)
+        login.setOnClickListener { val intent = Intent(this@register, aldwin.tablante.com.appblock.Account.Module.login::class.java)
             startActivity(intent) }
 
         this.reg!!.setOnClickListener {
 
 
-
+                 this.firstname = findViewById(R.id.name)
+            this.lastname = findViewById(R.id.lname)
                 this.user = findViewById(R.id.username)
                 this.pass = findViewById(R.id.password)
                 this.conpass = findViewById(R.id.confirmpassword)
@@ -52,16 +55,18 @@ loginToFirebase()
                        var newacc = User(_idGenerator().getNewId(), this.user!!.text.toString(),
                                this.pass!!.text.toString(),
                                this.email!!.text.toString(),
-                               this.code!!.text.toString()
+                               this.code!!.text.toString(),   this.firstname!!.text.toString(),
+                               this.lastname!!.text.toString()
                                )
 
 
                        if( registerCheck().checkacc(newacc,accounts)){
                           registerCheck().registerNewAccount(newacc)
 
-                           Toast.makeText(this@register, "You Can Log in now",
+                           Toast.makeText(this@register, newacc.accID,
                                    Toast.LENGTH_LONG).show()
-                          val intent = Intent(this, login::class.java)
+                          val intent = Intent(this@register, aldwin.tablante.com.appblock.Account.Module.login::class.java)
+                           intent.putExtra("id",newacc.accID)
                           startActivity(intent)
 
                     }
@@ -121,7 +126,9 @@ loginToFirebase()
         if(this.user!!.text .toString()!="" &&
                 this.pass!!.text.toString() !="" &&
                 this.conpass!!.text.toString() != "" &&
-                this.email!!.text.toString() != ""
+                this.email!!.text.toString() != "" &&
+                this.firstname!!.text.toString() != "" &&
+                this.lastname!!.text.toString() != ""
 
 
         ){bool = true}

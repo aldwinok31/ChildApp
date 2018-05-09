@@ -1,6 +1,6 @@
 package aldwin.tablante.com.appblock.Account.Module
 
-import aldwin.tablante.com.appblock.Account.AppBlock.Parent_App._Parent_App
+import aldwin.tablante.com.appblock.Account.AppBlock.Parent_App.AppMain._Parent_App
 import aldwin.tablante.com.appblock.Account.Fetcher.a_Fetch
 import aldwin.tablante.com.appblock.Account.Model.User
 import aldwin.tablante.com.appblock.Account.Model.loginCheck
@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
 
 /**
  * Created by Bobby on 03/05/2018.
@@ -27,7 +26,7 @@ class login : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_acc)
 
-loginToFirebase()
+
 
         username = findViewById(R.id.editText)
         password = findViewById(R.id.editText2)
@@ -75,6 +74,7 @@ loginToFirebase()
                 Toast.makeText(this@login, "Welcome",
                         Toast.LENGTH_LONG).show()
                this.id = this.acclist[count].accID
+
                 this.loginacc = this.acclist[count]
                 bool = true
             }
@@ -90,12 +90,4 @@ loginToFirebase()
 
 
 
-    fun loginToFirebase(){
-
-        val email = "vincent@yahoo.com"
-        val password ="123456"
-
-FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
-
-    }
 }

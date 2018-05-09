@@ -8,37 +8,71 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class _accountFetcher {
-
-    fun fetchAccount(id:String): Boolean {
+    var user: User?= null
+    fun fetchAccount(id:String): User{
 
         var database = FirebaseDatabase.getInstance()
         var dataref = database.getReference("Accounts").child(id)
 
+
 dataref.addValueEventListener(object : ValueEventListener{
     override fun onDataChange(p0: DataSnapshot?) {
-var user = p0!!.child(id).childrenCount
-
-        Log.d("Aldwin",user.toString())
-        Log.d("Aldwin",user.toString())
-        Log.d("Aldwin",user.toString())
-        Log.d("Aldwin",user.toString())
-        Log.d("Aldwin",user.toString())
-        Log.d("Aldwin",user.toString())
-        Log.d("Aldwin",user.toString())
-        Log.d("Aldwin",user.toString())
-        Log.d("Aldwin",user.toString())
-
-
-
+user = p0!!.getValue(User::class.java)
     }
 
     override fun onCancelled(p0: DatabaseError?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+Log.d("","Disconnected")    }
 })
+        return user!!
+    }
+
+    fun fetchParent() : ArrayList<User>{
+        var arr : ArrayList<User> = ArrayList()
+        var database = FirebaseDatabase.getInstance()
+        var dataref = database.getReference("Accounts")
+
+        dataref.addValueEventListener(object:ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot?) {
+
+             for (h in p0!!.children) {
+                 user = h.getValue(User::class.java)
+                 arr.add(user!!)
+             }
+            }
+
+            override fun onCancelled(p0: DatabaseError?) {
+                Log.d("Not Accepted"," No net")             }
+
+        } )
 
 
+return arr
 
-        return true
+    }
+
+    fun fetchParenthWithCode(code:String) : ArrayList<User>{
+        var arr : ArrayList<User> = ArrayList()
+        var database = FirebaseDatabase.getInstance()
+        var dataref = database.getReference("Accounts")
+
+        dataref.addValueEventListener(object:ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot?) {
+
+                for (h in p0!!.children) {
+                    user = h.getValue(User::class.java)
+                    if(user!!.codd == code) {
+                        arr.add(user!!)
+                    }
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError?) {
+Log.d("Not Accepted"," No net")            }
+
+        } )
+
+
+        return arr
+
     }
 }

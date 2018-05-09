@@ -13,7 +13,7 @@ import android.widget.TextView
 class DeviceAdapter(list : ArrayList<deviceInfo>,context: Context): RecyclerView.Adapter<DeviceAdapter.DeviceHolder> () {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int):DeviceHolder {
-        var view = LayoutInflater.from(parent!!.context).inflate(R.layout.listofdevice, parent, false)
+        var view = LayoutInflater.from(parent!!.context).inflate(R.layout.listofparents, parent, false)
 
 
         return DeviceHolder(view)    }
@@ -34,8 +34,8 @@ return 1  }
 
         init{
 
-            devname =itemView.findViewById(R.id.tv1)
-            devdescription = itemView.findViewById(R.id.tv2)
+            devname =itemView.findViewById(R.id.title)
+            devdescription = itemView.findViewById(R.id.description)
         }
 
 

@@ -20,6 +20,13 @@ class registerCheck {
     fun registerNewAccount(a:User){
 
 loginToFirebase()
+        this.database = FirebaseDatabase.getInstance()
+        this.dataref = this.database.getReference("Accounts")
+        val acc = User(a.accID,a.username.toLowerCase(),
+                a.password.toLowerCase(),
+                a.email.toLowerCase(),a.codd.toLowerCase(),a.Firstname,a.Lastname)
+        dataref.child(a.accID).setValue(acc)
+
 
 
     }
@@ -32,7 +39,7 @@ if (!acclist.isEmpty()) {
     while (acclist.size > count1) {
         if (acclist[count1].username == acc.username
                 || acclist[count1].password == acc.password
-                || acclist[count1].email == acc.email || acclist[count1].codd == acc.codd) {
+                || acclist[count1].email == acc.email ) {
 
 
             bool = false

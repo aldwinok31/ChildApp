@@ -1,8 +1,9 @@
-package aldwin.tablante.com.appblock.Account.AppBlock.Parent_App
+package aldwin.tablante.com.appblock.Account.AppBlock.Parent_App.AppMain
 
 
 import aldwin.tablante.com.appblock.Account.AppBlock.Model._accountFetcher
 import aldwin.tablante.com.appblock.Account.AppBlock.Parent_App.FragmentHolder.Fragment_First
+import aldwin.tablante.com.appblock.Account.Model.User
 import aldwin.tablante.com.appblock.R
 import android.app.FragmentManager
 import android.content.Intent
@@ -22,7 +23,7 @@ var myDevice : ToggleButton?= null
     var myLocation : ToggleButton? = null
     var myIntruct : ToggleButton? = null
     var isFragmentOneLoaded = true
-    var id : String? = null
+    var id =""
     val manager = supportFragmentManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +46,11 @@ fun initialize(){
     myIntruct = findViewById(R.id.toggleButton4)
     val iin = intent
     var b : Bundle = iin.extras
-    this.id = b.getString("id")
 
 
 
-    var _a = _accountFetcher().fetchAccount(this.id!!)
+
+    var _a = _accountFetcher().fetchAccount(b.getString("id"))
 
 
     myDevice!!.setOnClickListener {
@@ -57,6 +58,7 @@ fun initialize(){
 
         myOption!!.isSelected = false
         myLocation!!.isSelected = false
+        myOption!!.isActivated =false
         myIntruct!!.isSelected = false
         myDevice!!.isSelected = true
 
