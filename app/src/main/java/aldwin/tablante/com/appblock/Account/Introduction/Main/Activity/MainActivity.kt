@@ -8,12 +8,12 @@ import android.os.Bundle
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
-    private  var register : Button?= null
-    private  var login: Button?=null
+    private var register: Button? = null
+    private var login: Button? = null
     private var gochild: Button? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-      setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 
         register = findViewById(R.id.register)
         login = findViewById(R.id.button)
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         this.register!!.setOnClickListener {
 
             val intent = Intent(this,
-                   aldwin.tablante.com.appblock.Account.Module.register::class.java)
+                    aldwin.tablante.com.appblock.Account.Module.register::class.java)
             startActivity(intent)
         }
 

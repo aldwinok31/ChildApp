@@ -1,17 +1,12 @@
 package aldwin.tablante.com.appblock.Account.AppBlock.Parent_App.AppMain
 
 
-import aldwin.tablante.com.appblock.Account.AppBlock.Model._accountFetcher
+import aldwin.tablante.com.appblock.Account.Fetcher._accountFetcher
 import aldwin.tablante.com.appblock.Account.AppBlock.Parent_App.FragmentHolder.Fragment_First
-import aldwin.tablante.com.appblock.Account.Model.User
 import aldwin.tablante.com.appblock.R
-import android.app.FragmentManager
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.ToggleButton
-import android.support.v4.app.NotificationCompat.getExtras
-
 
 
 /**
@@ -24,6 +19,7 @@ var myDevice : ToggleButton?= null
     var myIntruct : ToggleButton? = null
     var isFragmentOneLoaded = true
     var id =""
+    val bundle = Bundle()
     val manager = supportFragmentManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +45,7 @@ fun initialize(){
 
 
 
+    bundle.putString("id", b.getString("id"))
 
     var _a = _accountFetcher().fetchAccount(b.getString("id"))
 
@@ -95,8 +92,10 @@ fun initialize(){
 
 
     fun showFragmentParent(){
+
 val transaction = manager.beginTransaction()
         val fragment = Fragment_First()
+        fragment.arguments = bundle
         transaction.replace(R.id.holderfrag,fragment)
         transaction.addToBackStack(null)
         transaction.commit()

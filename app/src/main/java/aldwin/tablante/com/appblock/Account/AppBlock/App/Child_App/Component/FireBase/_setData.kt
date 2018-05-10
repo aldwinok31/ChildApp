@@ -8,10 +8,9 @@ import com.google.firebase.database.FirebaseDatabase
 class _setData {
 
 
-
-    fun _setDataFirebase(a: myDevice, id:String){
-        var database : FirebaseDatabase
-        var dataref : DatabaseReference
+    fun _setDataFirebase(a: myDevice, id: String) {
+        var database: FirebaseDatabase
+        var dataref: DatabaseReference
 
         database = FirebaseDatabase.getInstance()
         dataref = database.getReference("Accounts").child(id).child("Devices")

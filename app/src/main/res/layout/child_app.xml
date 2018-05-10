@@ -16,6 +16,28 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
+            android:id="@+id/user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="#FFF"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textAlignment="center" />
+        <EditText
+            android:id="@+id/pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="#FFF"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textAlignment="center" />
+        <EditText
             android:id="@+id/goCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,13 +48,6 @@
             android:inputType="textPersonName"
             android:padding="10dp"
             android:textAlignment="center" />
-
-        <android.support.v7.widget.RecyclerView
-            android:background="#FFF"
-            android:id="@+id/rview"
-            android:layout_margin="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/goChild"

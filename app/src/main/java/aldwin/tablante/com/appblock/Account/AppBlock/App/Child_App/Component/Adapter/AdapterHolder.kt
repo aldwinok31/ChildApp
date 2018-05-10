@@ -12,14 +12,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 class AdapterHolder(list : ArrayList<User>, context: Context): RecyclerView.Adapter<AdapterHolder.UserHolder> () {
-
+    override fun setHasStableIds(hasStableIds: Boolean) {
+        setHasStableIds(true)
+        super.setHasStableIds(hasStableIds)
+    }
 var parlist : ArrayList<User> =list
     override fun onBindViewHolder(holder: UserHolder?, position: Int) {
         var para = parlist[position]
 
 
         holder!!.devname.text = " User: " + para.Firstname + " " + para.Lastname
-        holder.devdescription.text = " Model : " +  para.DeviceModel
+        holder.devdescription.text =   para.DeviceModel
+
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): UserHolder {
@@ -29,6 +35,14 @@ var parlist : ArrayList<User> =list
 
     override fun getItemCount(): Int {
         return parlist.size
+    }
+
+    override fun getItemId(position: Int): Long {
+        return super.getItemId(position)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
     }
 
     class UserHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

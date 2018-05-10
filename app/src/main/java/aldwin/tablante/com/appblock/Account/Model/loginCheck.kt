@@ -6,10 +6,10 @@ package aldwin.tablante.com.appblock.Account.Model
 class loginCheck {
 
 
-    fun isFilled(username:String,password:String):Boolean{
+    fun isFilled(username: String, password: String): Boolean {
         var bool = true
 
-        if(username == "" && password == ""){
+        if (username == "" && password == "") {
 
             bool = false
         }

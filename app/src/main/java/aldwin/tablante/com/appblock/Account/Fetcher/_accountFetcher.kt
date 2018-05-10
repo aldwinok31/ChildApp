@@ -1,4 +1,4 @@
-package aldwin.tablante.com.appblock.Account.AppBlock.Model
+package aldwin.tablante.com.appblock.Account.Fetcher
 
 import aldwin.tablante.com.appblock.Account.Model.User
 import android.util.Log
@@ -24,34 +24,53 @@ user = p0!!.getValue(User::class.java)
 Log.d("","Disconnected")    }
 })
         return user!!
+
+
     }
 
     fun fetchParent() : ArrayList<User>{
+        var usert : User ? = null
+        var sss : String = ""
         var arr : ArrayList<User> = ArrayList()
         var database = FirebaseDatabase.getInstance()
         var dataref = database.getReference("Accounts")
 
         dataref.addValueEventListener(object:ValueEventListener{
-            override fun onDataChange(p0: DataSnapshot?) {
 
-             for (h in p0!!.children) {
-                 user = h.getValue(User::class.java)
-                 arr.add(user!!)
-             }
-            }
 
             override fun onCancelled(p0: DatabaseError?) {
-                Log.d("Not Accepted"," No net")             }
+                Log.d("Not Accepted"," No net")
+            }
+            override fun onDataChange(p0: DataSnapshot?) {
+
+                for (h in p0!!.children) {
+                    usert = h.getValue(User::class.java)
+                    arr.add(usert!!)
+
+
+
+
+
+                }
+            }
+
+
 
         } )
 
 
+
+
 return arr
+
+
 
     }
 
-    fun fetchParenthWithCode(code:String) : ArrayList<User>{
+    fun fetchParenthWithCode(code:String) : ArrayList<String>{
         var arr : ArrayList<User> = ArrayList()
+        var sss : String = ""
+        var arrString : ArrayList<String> = ArrayList()
         var database = FirebaseDatabase.getInstance()
         var dataref = database.getReference("Accounts")
 
@@ -60,9 +79,11 @@ return arr
 
                 for (h in p0!!.children) {
                     user = h.getValue(User::class.java)
-                    if(user!!.codd == code) {
+
                         arr.add(user!!)
-                    }
+                    sss = user!!.accID
+
+
                 }
             }
 
@@ -71,8 +92,7 @@ Log.d("Not Accepted"," No net")            }
 
         } )
 
-
-        return arr
+        return arrString
 
     }
 }

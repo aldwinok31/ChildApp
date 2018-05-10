@@ -6,8 +6,8 @@ import com.google.firebase.database.FirebaseDatabase
  * Created by Bobby on 04/05/2018.
  */
 class _idGenerator {
-// Generates ID
-    fun getNewId():String{
+    // Generates ID
+    fun getNewId(): String {
 
         var database = FirebaseDatabase.getInstance()
         var dataref = database.getReference("Accounts")

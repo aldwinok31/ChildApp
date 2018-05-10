@@ -12,71 +12,61 @@ import java.util.regex.Pattern
  */
 class registerCheck {
 
-    private lateinit var database : FirebaseDatabase
-    private lateinit var dataref : DatabaseReference
+    private lateinit var database: FirebaseDatabase
+    private lateinit var dataref: DatabaseReference
 
 
     // Creating a New Account
-    fun registerNewAccount(a:User){
+    fun registerNewAccount(a: User) {
 
-loginToFirebase()
+        loginToFirebase()
         this.database = FirebaseDatabase.getInstance()
         this.dataref = this.database.getReference("Accounts")
-        val acc = User(a.accID,a.username.toLowerCase(),
+        val acc = User(a.accID, a.username.toLowerCase(),
                 a.password.toLowerCase(),
-                a.email.toLowerCase(),a.codd.toLowerCase(),a.Firstname,a.Lastname)
+                a.email.toLowerCase(), a.codd.toLowerCase(), a.Firstname, a.Lastname)
         dataref.child(a.accID).setValue(acc)
 
 
-
     }
 
-//  Checking of Accounts if Already exist
-    fun checkacc(acc: User,acclist:ArrayList<User>) : Boolean{
-        var count1=0
-        var bool=true
-if (!acclist.isEmpty()) {
-    while (acclist.size > count1) {
-        if (acclist[count1].username == acc.username
-                || acclist[count1].password == acc.password
-                || acclist[count1].email == acc.email ) {
+    //  Checking of Accounts if Already exist
+    fun checkacc(acc: User, acclist: ArrayList<User>): Boolean {
+        var count1 = 0
+        var bool = true
+        if (!acclist.isEmpty()) {
+            while (acclist.size > count1) {
+                if (acclist[count1].username == acc.username
+                        || acclist[count1].password == acc.password
+                        || acclist[count1].email == acc.email) {
 
 
-            bool = false
-            break
+                    bool = false
+                    break
+                }
+
+                count1++
+            }
+
+
         }
 
-        count1++
-    }
 
 
-}
-
-
-
-return bool
-
-    }
-
-
-    fun checkEmail(email:String):Boolean{
-        var bool = false
-
-        if(Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-
-            bool = true
-
-        }
         return bool
+
     }
 
 
-    fun loginToFirebase(){
+
+
+
+    fun loginToFirebase() {
 
         val email = "vincent@yahoo.com"
-        val password ="123456"
+        val password = "123456"
 
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
 
     }
 }
