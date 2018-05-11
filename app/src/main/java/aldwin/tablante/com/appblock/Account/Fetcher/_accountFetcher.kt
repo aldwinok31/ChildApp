@@ -2,95 +2,96 @@ package aldwin.tablante.com.appblock.Account.Fetcher
 
 import aldwin.tablante.com.appblock.Account.Model.User
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class _accountFetcher {
-    var user: User?= null
-    fun fetchAccount(id:String): User{
 
+
+    fun fetchAccount(id: String): User {
+        var user: User? = null
         var database = FirebaseDatabase.getInstance()
         var dataref = database.getReference("Accounts").child(id)
 
 
-dataref.addValueEventListener(object : ValueEventListener{
-    override fun onDataChange(p0: DataSnapshot?) {
-user = p0!!.getValue(User::class.java)
-    }
+        dataref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot?) {
+                user = p0!!.getValue(User::class.java)
+            }
 
-    override fun onCancelled(p0: DatabaseError?) {
-Log.d("","Disconnected")    }
-})
+            override fun onCancelled(p0: DatabaseError?) {
+                Log.d("", "Disconnected")
+            }
+        })
         return user!!
 
 
     }
 
-    fun fetchParent() : ArrayList<User>{
-        var usert : User ? = null
-        var sss : String = ""
-        var arr : ArrayList<User> = ArrayList()
+    fun fetchParent(): ArrayList<User> {
+        var usert: User? = null
+        var arr: ArrayList<User> = ArrayList()
         var database = FirebaseDatabase.getInstance()
         var dataref = database.getReference("Accounts")
 
-        dataref.addValueEventListener(object:ValueEventListener{
+        dataref.addValueEventListener(object : ValueEventListener {
 
 
             override fun onCancelled(p0: DatabaseError?) {
-                Log.d("Not Accepted"," No net")
+                Log.d("Not Accepted", " No net")
             }
+
             override fun onDataChange(p0: DataSnapshot?) {
 
                 for (h in p0!!.children) {
+
                     usert = h.getValue(User::class.java)
                     arr.add(usert!!)
 
-
-
-
-
                 }
             }
-
-
-
-        } )
+        })
 
 
 
 
-return arr
-
+        return arr
 
 
     }
 
-    fun fetchParenthWithCode(code:String) : ArrayList<String>{
-        var arr : ArrayList<User> = ArrayList()
-        var sss : String = ""
-        var arrString : ArrayList<String> = ArrayList()
+    fun fetchParenthWithCode(code: String , username:String , password:String):ArrayList<User> {
+        var parent: User? = null
+        var id = ""
+        var arrString: ArrayList<User> = ArrayList()
         var database = FirebaseDatabase.getInstance()
         var dataref = database.getReference("Accounts")
 
-        dataref.addValueEventListener(object:ValueEventListener{
+        dataref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot?) {
 
                 for (h in p0!!.children) {
-                    user = h.getValue(User::class.java)
+                   var  user = h.getValue(User::class.java)
+if(user!!.username == username && user!!.password == password){
+    arrString.add(user!!)
+}
 
-                        arr.add(user!!)
-                    sss = user!!.accID
+
 
 
                 }
+
             }
 
             override fun onCancelled(p0: DatabaseError?) {
-Log.d("Not Accepted"," No net")            }
+                Log.d("Not Accepted", " No net")
+            }
 
-        } )
+        })
+
 
         return arrString
 

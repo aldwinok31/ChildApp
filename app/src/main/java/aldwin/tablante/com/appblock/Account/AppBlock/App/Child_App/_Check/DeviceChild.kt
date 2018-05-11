@@ -1,51 +1,59 @@
 package aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App._Check
 
-import aldwin.tablante.com.appblock.Account.Model.User
-import aldwin.tablante.com.appblock.Account.Model._idGenerator
-import android.content.Context
+import aldwin.tablante.com.appblock.Account.AppBlock.Model.myDevice
 import android.util.Log
-import android.widget.Toast
 import com.google.firebase.database.*
 
 class DeviceChild {
 
 
+    fun hasExist(userid:String, deviceId: String): ArrayList<checkId> {
 
-    fun hasExist(user:ArrayList<String>,deviceId : String):Boolean{
-var bool = false
-var count =0
+        var count = 0
         var count2 = 0
+        var devlist:ArrayList<checkId> = ArrayList()
         var data = FirebaseDatabase.getInstance()
         var ref = data.getReference("Accounts")
-        var users = user.size
+        ref = data.getReference("Accounts")
+
+        if (!userid.equals("")) {
+
+                ref.addValueEventListener(object : ValueEventListener {
+
+                    override fun onDataChange(p0: DataSnapshot?) {
 
 
-        ref.addValueEventListener(object: ValueEventListener{
-
-            override fun onDataChange(p0: DataSnapshot?) {
-                if(p0!!.exists()){
-
-                   for (h in p0.children) {
+                        if (p0!!.child(userid).child("Devices").child(deviceId).exists()) {
+                            var user = p0!!.child(userid).child("Devices").child(deviceId).getValue(myDevice::class.java)
 
 
+                          devlist.add(checkId(user!!.ID, true))
+
+                        }
+
+                        else {
+
+                            devlist.add(checkId(userid, false))
 
 
-                   }
-
-                }
-            }
-
-            override fun onCancelled(p0: DatabaseError?) {
-Log.d("error","error")            }
-
-        })
+                        }
 
 
+                    }
+
+                    override fun onCancelled(p0: DatabaseError?) {
+                        Log.d("error", "error")
+                    }
+
+                })
 
 
+                count++
 
-        return bool
 
+        }
+
+        return devlist
 
 
     }

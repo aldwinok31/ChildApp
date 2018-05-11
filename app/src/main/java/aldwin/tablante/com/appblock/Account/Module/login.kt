@@ -71,8 +71,8 @@ class login : AppCompatActivity(){
                     this.password!!.text!!.toString() == this.acclist[count].password
             ){
 
-                Toast.makeText(this@login, "Welcome",
-                        Toast.LENGTH_LONG).show()
+               // Toast.makeText(this@login, "Welcome",
+                 //       Toast.LENGTH_LONG).show()
                this.id = this.acclist[count].accID
 
                 this.loginacc = this.acclist[count]

@@ -1,5 +1,6 @@
 package aldwin.tablante.com.appblock.Account.Fetcher
 
+import aldwin.tablante.com.appblock.Account.AppBlock.Model.myDevice
 import aldwin.tablante.com.appblock.Account.AppBlock.Parent_App.Component.deviceInfo
 import aldwin.tablante.com.appblock.Account.Model.User
 import android.os.AsyncTask
@@ -47,25 +48,25 @@ class a_Fetch() {
         return acclist
     }
 
-    fun getAccount(id:String):deviceInfo{
-        var user : deviceInfo?= null
+    fun getAccount(id: String): deviceInfo {
+        var user: deviceInfo? = null
 
         var data = FirebaseDatabase.getInstance()
         var ref = data.getReference("Accounts").child(id).child("Devices")
 
-        ref.addValueEventListener(object  : ValueEventListener{
+        ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot?) {
-if(p0!!.exists()){
+                if (p0!!.exists()) {
 
-    user = p0!!.getValue(deviceInfo::class.java)
+                    user = p0!!.getValue(deviceInfo::class.java)
 
 
-}
+                }
             }
 
             override fun onCancelled(p0: DatabaseError?) {
-Log.d("ERROR","ERROR")            }
-
+                Log.d("ERROR", "ERROR")
+            }
 
 
         })
@@ -75,6 +76,49 @@ Log.d("ERROR","ERROR")            }
 
 
     }
+
+    fun getAccountDevices(id:String): ArrayList<myDevice> {
+
+        var acclist: ArrayList<myDevice> = ArrayList()
+
+        var data = FirebaseDatabase.getInstance()
+        var ref = data.getReference("Accounts").child(id).child("Devices")
+
+        ref.addValueEventListener(object : ValueEventListener {
+
+            override fun onCancelled(p0: DatabaseError?) {
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+
+                for (h in p0.children) {
+                    var value = h.getValue(myDevice::class.java)
+                    acclist.add(value!!)
+
+                }
+
+
+            }
+
+
+        }
+
+        )
+
+        return acclist
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

@@ -19,120 +19,87 @@ import kotlinx.android.synthetic.main.register_acc.*
 /**
  * Created by Bobby on 03/05/2018.
  */
-class register : AppCompatActivity (){
+class register : AppCompatActivity() {
 
-    private var user : EditText?=null
-    private var pass : EditText?=null
-    private var conpass: EditText?=null
-    private var reg : Button?=null
-    private var email: EditText?=null
-    private var code:EditText?= null
-    private var firstname:EditText? = null
-    private var lastname : EditText? = null
+    private var user: EditText? = null
+    private var pass: EditText? = null
+    private var conpass: EditText? = null
+    private var reg: Button? = null
+    private var email: EditText? = null
+    private var code: EditText? = null
+    private var firstname: EditText? = null
+    private var lastname: EditText? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register_acc)
 
-loginToFirebase()
+
         this.reg = findViewById(R.id.register)
-        var accounts =a_Fetch().getAccounts()
-        login.setOnClickListener { val intent = Intent(this@register, aldwin.tablante.com.appblock.Account.Module.login::class.java)
-            startActivity(intent) }
+        var accounts = a_Fetch().getAccounts()
+        login.setOnClickListener {
+            val intent = Intent(this@register, aldwin.tablante.com.appblock.Account.Module.login::class.java)
+            startActivity(intent)
+        }
 
         this.reg!!.setOnClickListener {
 
 
-                 this.firstname = findViewById(R.id.name)
+            this.firstname = findViewById(R.id.name)
             this.lastname = findViewById(R.id.lname)
-                this.user = findViewById(R.id.username)
-                this.pass = findViewById(R.id.password)
-                this.conpass = findViewById(R.id.confirmpassword)
-                this.email = findViewById(R.id.email)
- this.code = findViewById(R.id.code)
-               if(isvalidAcc() && isSame() ){
-               
-                   if(isvalidPass()) {
-                       var newacc = User(_idGenerator().getNewId(), this.user!!.text.toString(),
-                               this.pass!!.text.toString(),
-                               this.email!!.text.toString(),
-                               this.code!!.text.toString(),   this.firstname!!.text.toString(),
-                               this.lastname!!.text.toString()
-                               )
+            this.user = findViewById(R.id.username)
+            this.pass = findViewById(R.id.password)
+            this.conpass = findViewById(R.id.confirmpassword)
+            this.email = findViewById(R.id.email)
+            this.code = findViewById(R.id.code)
+            if (isvalidAcc() && isSame()) {
+
+                if (isvalidPass()) {
+                    var newacc = User(_idGenerator().getNewId(), this.user!!.text.toString(),
+                            this.pass!!.text.toString(),
+                            this.email!!.text.toString(),
+                            this.code!!.text.toString(), this.firstname!!.text.toString(),
+                            this.lastname!!.text.toString()
+                    )
 
 
-                       if( registerCheck().checkacc(newacc,accounts)){
-                          registerCheck().registerNewAccount(newacc)
+                    if (registerCheck().checkacc(newacc, accounts)) {
+                        registerCheck().registerNewAccount(newacc)
 
-                           Toast.makeText(this@register, newacc.accID,
-                                   Toast.LENGTH_LONG).show()
-                          val intent = Intent(this@register, aldwin.tablante.com.appblock.Account.Module.login::class.java)
-                           intent.putExtra("id",newacc.accID)
-                          startActivity(intent)
+                        Toast.makeText(this@register, newacc.accID,
+                                Toast.LENGTH_LONG).show()
+                        val intent = Intent(this@register, aldwin.tablante.com.appblock.Account.Module.login::class.java)
+                        intent.putExtra("id", newacc.accID)
+                        startActivity(intent)
 
+                    } else {
+                        Toast.makeText(this@register, "Account Already Existed",
+                                Toast.LENGTH_LONG).show()
                     }
-                       else
-                       {
-                           Toast.makeText(this@register, "Account Already Existed",
-                                   Toast.LENGTH_LONG).show()
-                       }
 
-                   }
+                }
 
-                  }
-
-
-
+            }
 
 
         }
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    fun isvalidAcc():Boolean{
+    fun isvalidAcc(): Boolean {
 
         var bool = false
 
-        if(this.user!!.text .toString()!="" &&
-                this.pass!!.text.toString() !="" &&
+        if (this.user!!.text.toString() != "" &&
+                this.pass!!.text.toString() != "" &&
                 this.conpass!!.text.toString() != "" &&
                 this.email!!.text.toString() != "" &&
                 this.firstname!!.text.toString() != "" &&
                 this.lastname!!.text.toString() != ""
 
 
-        ){bool = true}
-        else{
+        ) {
+            bool = true
+        } else {
 
             this.user!!.error = "Incomplete Data.."
             this.pass!!.error = "Incomplete Data.."
@@ -140,11 +107,12 @@ loginToFirebase()
             this.email!!.error = "Incomplete Data.."
         }
 
-        if(this.user!!.text .toString().length >= 6 &&
+        if (this.user!!.text.toString().length >= 6 &&
                 this.pass!!.text.toString().length >= 6 &&
                 this.conpass!!.text.toString().length >= 6 &&
-                this.email!!.text.toString().length >= 10){bool = true}
-        else{
+                this.email!!.text.toString().length >= 10) {
+            bool = true
+        } else {
 
             this.user!!.error = "Incomplete Data.."
             this.pass!!.error = "Incomplete Data.."
@@ -154,27 +122,26 @@ loginToFirebase()
         return bool
     }
 
-fun isvalidPass():Boolean{
-    var bool = false
-    if(this.pass!!.text.toString().toLowerCase()
-            == this.conpass!!.text.toString().toLowerCase()){
+    fun isvalidPass(): Boolean {
+        var bool = false
+        if (this.pass!!.text.toString().toLowerCase()
+                == this.conpass!!.text.toString().toLowerCase()) {
 
-        bool= true
+            bool = true
+        } else {
+
+            this.conpass!!.error = "Mismatched Password"
+        }
+
+
+        return bool
     }
-    else{
-
-        this.conpass!!.error = "Mismatched Password"
-    }
 
 
-    return bool
-}
-
-
-    fun isSame():Boolean{
+    fun isSame(): Boolean {
         var bool = true
 
-        if(this.user!!.text.toString() == this.pass!!.text.toString()){
+        if (this.user!!.text.toString() == this.pass!!.text.toString()) {
 
             this.user!!.error = "Password Cant be same with Username"
             this.pass!!.error = "Password Cant be same with Username"
@@ -183,12 +150,5 @@ fun isvalidPass():Boolean{
         return bool
     }
 
-    fun loginToFirebase(){
 
-        val email = "vincent@yahoo.com"
-        val password ="123456"
-
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
-
-    }
 }

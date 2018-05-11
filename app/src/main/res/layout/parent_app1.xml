@@ -10,58 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-       >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:orientation="horizontal">
-
-            <ToggleButton
-                android:id="@+id/toggleButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/colorPrimaryDark"
-                android:textColor="#FFF"
-                android:textOff="Devices(Off)"
-                android:textOn="Devices"
-
-                />
-
-            <ToggleButton
-                android:id="@+id/toggleButton2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-
-                android:background="@color/colorPrimaryDark"
-                android:textColor="#FFF"
-                android:textOff="Timer"
-                android:textOn="Timer" />
-
-            <ToggleButton
-                android:id="@+id/toggleButton3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/colorPrimaryDark"
-                android:text="ToggleButton" />
-
-            <ToggleButton
-                android:id="@+id/toggleButton4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/colorPrimaryDark"
-                android:text="ToggleButton" />
-        </LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/holderfrag"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" />
 
     </LinearLayout>

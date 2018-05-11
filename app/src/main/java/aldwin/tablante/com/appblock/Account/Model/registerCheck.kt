@@ -18,8 +18,6 @@ class registerCheck {
 
     // Creating a New Account
     fun registerNewAccount(a: User) {
-
-        loginToFirebase()
         this.database = FirebaseDatabase.getInstance()
         this.dataref = this.database.getReference("Accounts")
         val acc = User(a.accID, a.username.toLowerCase(),
@@ -57,16 +55,4 @@ class registerCheck {
 
     }
 
-
-
-
-
-    fun loginToFirebase() {
-
-        val email = "vincent@yahoo.com"
-        val password = "123456"
-
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-
-    }
 }

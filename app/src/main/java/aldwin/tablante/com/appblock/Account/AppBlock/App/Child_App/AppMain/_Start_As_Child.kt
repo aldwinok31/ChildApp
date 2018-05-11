@@ -1,25 +1,22 @@
 package aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.AppMain
 
-import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.Component.Adapter.AdapterHolder
 import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.Component.FireBase._setData
+import aldwin.tablante.com.appblock.Account.AppBlock.Model.myDevice
 import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.Device.DeviceProvider
 import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App._Check.DeviceChild
-import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App._Check.ToDevParent
+import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App._Check.checkId
 import aldwin.tablante.com.appblock.Account.Fetcher._accountFetcher
 import aldwin.tablante.com.appblock.Account.Model.User
 import aldwin.tablante.com.appblock.R
-import android.content.Context
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.telephony.TelephonyManager
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
-import java.util.*
-import android.provider.Settings.Secure
-import android.hardware.usb.UsbDevice.getDeviceId
-import android.net.wifi.WifiManager
-import android.net.wifi.WifiInfo
+
 import kotlin.collections.ArrayList
 
 
@@ -27,85 +24,112 @@ import kotlin.collections.ArrayList
  * Created by Bobby on 06/05/2018.
  */
 class _Start_As_Child : AppCompatActivity() {
-
-    var adapter: AdapterHolder? = null
+    private var bool = false
+    private var parent: myDevice? = null
+    private var username: EditText? = null
+    private var progress: ProgressBar? = null
+    private var password: EditText? = null
     private var ccod: EditText? = null
     private var gochild: Button? = null
-    private var id: String? = null
-    private var usersId: ArrayList<String> = ArrayList()
-    private var parentList: ArrayList<User> = ArrayList()
+    private var boolist: ArrayList<checkId> = ArrayList()
+    private var loader: Loader? = null
+
+    private var usersId :ArrayList<User> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.child_app)
+
+
+
+
         initializer()
 
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    fun initializer(){
-
+    fun initializer() {
+        this.progress = findViewById(R.id.progressBar2)
+        this.progress!!.visibility = View.INVISIBLE
         this.ccod = findViewById(R.id.goCode)
         this.gochild = findViewById(R.id.goChild)
-      //  val manager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-       // val info = manager.connectionInfo
-      //  val address = info.macAddress
-        var parent = DeviceProvider().fetchInfo("")
-        parentList = _accountFetcher().fetchParent()
-
-        Toast.makeText(this@_Start_As_Child, parentList!!.toString(),
-                Toast.LENGTH_LONG).show()
-
-        var bool = false
+        this.username = findViewById(R.id.user)
+        this.password = findViewById(R.id.pass)
         this.gochild!!.setOnClickListener {
 
-            usersId = _accountFetcher().fetchParenthWithCode(this.gochild!!.text.toString())
-            bool = DeviceChild().hasExist(usersId,parent.name)
+            if (this.username!!.text.toString().equals("") &&
+                    this.ccod!!.text.toString().equals("") &&
+                    this.password!!.text.toString().equals("")) {
 
-            Toast.makeText(this@_Start_As_Child, usersId!!.toString(),
-                    Toast.LENGTH_LONG).show()
 
-            var count = 0
-            if (parentList!!.isNotEmpty()) {
-                while (parentList!!.size > count) {
-                    if (parentList[count].codd == this.ccod!!.text.toString()) {
-                        this.id = parentList[count].accID
-                    }
-                    count++
+                this.username!!.error = "Missing Requirement!"
+                this.ccod!!.error = "Missing Requirement!"
+                this.password!!.error = "Missing Requirement!"
+            } else {
+                var lder = Loader()
+
+                if (loader != null) {
+                    loader = null
                 }
 
-                var ids = this.id
-                _setData()._setDataFirebase(parent, ids!!)
+                lder.execute()
+                loader = lder
             }
-            else {
-                Toast.makeText(this@_Start_As_Child, "Retry Cannot connect to Internet....",
-                        Toast.LENGTH_LONG).show()
+        }
 
-            }
 
+    }
+
+
+    inner class Loader : AsyncTask<Void, Void, Void>() {
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            progress!!.visibility = View.VISIBLE
+            Toast.makeText(this@_Start_As_Child, "Checking Data",
+                    Toast.LENGTH_SHORT).show()
+        }
+
+        override fun doInBackground(vararg p0: Void?): Void? {
+            parent = DeviceProvider().fetchInfo("")
+            Thread.sleep(2000)
+            usersId = _accountFetcher().fetchParenthWithCode(ccod!!.text.toString(), username!!.text.toString(), password!!.text.toString())
+            Thread.sleep(3000)
+            publishProgress()
+
+
+if(usersId.isNotEmpty()) {
+    boolist = DeviceChild().hasExist(usersId[0].accID, parent!!.ID)
+    Thread.sleep(2000)
+
+    publishProgress()
+
+    if (!boolist[0]!!.bool && !boolist[0]!!.id.equals("") && boolist.isNotEmpty()) {
+        _setData()._setDataFirebase(parent!!, boolist[0]!!.id)
+
+    }
+
+
+}
+
+
+
+            return null
+        }
+
+        override fun onProgressUpdate(vararg values: Void?) {
+            super.onProgressUpdate(*values)
+            Toast.makeText(this@_Start_As_Child, usersId[0].Firstname.toString() ,Toast.LENGTH_SHORT).show()
 
         }
 
+
+        override fun onPostExecute(result: Void?) {
+            super.onPostExecute(result)
+            Toast.makeText(this@_Start_As_Child, "Saved",
+                    Toast.LENGTH_SHORT).show()
+            progress!!.visibility = View.INVISIBLE
+        }
 
     }
 }
