@@ -16,6 +16,8 @@ class _setData {
         dataref = database.getReference("Accounts").child(id)
         val acc = a
         dataref.child("Devices").child(acc.ID).setValue(acc)
+
+
     }
 
 }

@@ -64,8 +64,8 @@ class _accountFetcher {
     }
 
 
-       // Fetch Parent using Username and Password
-    fun fetchParentWithUser(code: String, username:String, password:String):ArrayList<User> {
+    // Fetch Parent using Username and Password
+    fun fetchParentWithUser(code: String, username: String, password: String): ArrayList<User> {
         var parent: User? = null
         var id = ""
         var arrString: ArrayList<User> = ArrayList()
@@ -76,12 +76,10 @@ class _accountFetcher {
             override fun onDataChange(p0: DataSnapshot?) {
 
                 for (h in p0!!.children) {
-                   var  user = h.getValue(User::class.java)
-if(user!!.username == username && user!!.password == password){
-    arrString.add(user!!)
-}
-
-
+                    var user = h.getValue(User::class.java)
+                    if (user!!.username == username && user!!.password == password) {
+                        arrString.add(user!!)
+                    }
 
 
                 }

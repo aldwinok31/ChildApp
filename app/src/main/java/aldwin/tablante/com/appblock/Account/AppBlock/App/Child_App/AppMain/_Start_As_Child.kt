@@ -5,9 +5,11 @@ import aldwin.tablante.com.appblock.Account.AppBlock.Model.myDevice
 import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.Device.DeviceProvider
 import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.Algorithm.DeviceChild
 import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.Algorithm.checkId
+import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.TrackerService
 import aldwin.tablante.com.appblock.Account.Fetcher._accountFetcher
 import aldwin.tablante.com.appblock.Account.Model.User
 import aldwin.tablante.com.appblock.R
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -33,7 +35,7 @@ class _Start_As_Child : AppCompatActivity() {
     private var gochild: Button? = null
     private var boolist: ArrayList<checkId> = ArrayList()
     private var loader: Loader? = null
-
+    private var startservice:Button? = null
     private var usersId :ArrayList<User> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +57,18 @@ class _Start_As_Child : AppCompatActivity() {
         this.gochild = findViewById(R.id.goChild)
         this.username = findViewById(R.id.user)
         this.password = findViewById(R.id.pass)
+        this.startservice = findViewById(R.id.service)
+
+        this.startservice!!.setOnClickListener {
+
+
+            startService(Intent(this, TrackerService::class.java))
+            finish()
+
+
+
+        }
+
         this.gochild!!.setOnClickListener {
 
             if (this.username!!.text.toString().equals("") &&
