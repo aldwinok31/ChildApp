@@ -1,5 +1,6 @@
 package aldwin.tablante.com.appblock.Account.AppBlock.Parent_App.AdapterHolder
 
+import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.Algorithm.DeleteFromFireBase
 import aldwin.tablante.com.appblock.Account.AppBlock.Model.myDevice
 import aldwin.tablante.com.appblock.Account.AppBlock.Parent_App.Component.deviceInfo
 import aldwin.tablante.com.appblock.R
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 
 class DeviceAdapter(list: ArrayList<myDevice>, context: Context) : RecyclerView.Adapter<DeviceAdapter.DeviceHolder>() {
@@ -22,8 +24,15 @@ class DeviceAdapter(list: ArrayList<myDevice>, context: Context) : RecyclerView.
 
     var data: ArrayList<myDevice> = list
     override fun onBindViewHolder(holder: DeviceHolder?, position: Int) {
-        holder!!.devname.text = "MODEL: " + data[position].MODEL
-        holder.devdescription.text = "SERIAL: " + data[position].ID
+        holder!!.devname.text = "Model: " + data[position].MODEL
+        holder.devdescription.text = "Serial: " + data[position].ID
+
+
+        var id = data[position].ID
+        var parentid = data[position].parentId
+        holder.devclickable.setOnClickListener {
+            deleteItem(position,id,parentid)
+        }
 
 
     }
@@ -35,9 +44,9 @@ class DeviceAdapter(list: ArrayList<myDevice>, context: Context) : RecyclerView.
     class DeviceHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var devname: TextView
         var devdescription: TextView
-
+        var devclickable: LinearLayout
         init {
-
+      devclickable = itemView.findViewById(R.id.clickable)
             devname = itemView.findViewById(R.id.title)
             devdescription = itemView.findViewById(R.id.description)
         }
@@ -46,9 +55,11 @@ class DeviceAdapter(list: ArrayList<myDevice>, context: Context) : RecyclerView.
     }
 
 
-    fun deleteItem( position: Int){
+    fun deleteItem( position: Int,id:String,parentId:String){
          data.removeAt(position)
         notifyItemRemoved(position)
+        DeleteFromFireBase().DeleteThis(parentId,id)
+
 
     }
 

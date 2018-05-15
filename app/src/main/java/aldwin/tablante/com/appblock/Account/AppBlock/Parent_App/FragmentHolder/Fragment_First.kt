@@ -91,7 +91,7 @@ if(!id.equals("")) {
         while(devicelist.size > count){
 
            var devobject = devicelist[count]
-
+            devobject.parentId = id
             dev.add(devobject)
             adapter = DeviceAdapter(dev, activity.applicationContext)
             publishProgress()
@@ -119,7 +119,7 @@ count++
         override fun onPostExecute(result: Void?) {
             super.onPostExecute(result)
 
-            Toast.makeText(context,text + " " + devicelist[1].ID.toString(),Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,text ,Toast.LENGTH_SHORT).show()
         }
     }
 }

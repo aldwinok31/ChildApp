@@ -17,34 +17,23 @@ class a_Fetch() {
 
 
     fun getAccounts(): ArrayList<User> {
-
         var acclist: ArrayList<User> = ArrayList()
-
         var data = FirebaseDatabase.getInstance()
         var ref = data.getReference("Accounts")
-
         ref.addValueEventListener(object : ValueEventListener {
-
             override fun onCancelled(p0: DatabaseError?) {
-
             }
-
             override fun onDataChange(p0: DataSnapshot) {
-
                 for (h in p0.children) {
                     var value = h.getValue(User::class.java)
+
+
                     acclist.add(value!!)
 
                 }
-
-
             }
-
-
         }
-
         )
-
         return acclist
     }
 

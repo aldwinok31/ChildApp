@@ -63,7 +63,9 @@ class _accountFetcher {
 
     }
 
-    fun fetchParenthWithCode(code: String , username:String , password:String):ArrayList<User> {
+
+       // Fetch Parent using Username and Password
+    fun fetchParentWithUser(code: String, username:String, password:String):ArrayList<User> {
         var parent: User? = null
         var id = ""
         var arrString: ArrayList<User> = ArrayList()

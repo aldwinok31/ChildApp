@@ -48,9 +48,6 @@ class registerCheck {
 
 
         }
-
-
-
         return bool
 
     }

@@ -92,7 +92,7 @@
             android:layout_margin="10dp"
             android:background="@color/colorPrimaryDark"
             android:padding="10dp"
-            android:text="Go Child"
+            android:text="Add this Device"
             android:textColor="#FFF" />
 
         <ProgressBar

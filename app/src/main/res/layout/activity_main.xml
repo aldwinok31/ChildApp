@@ -97,7 +97,7 @@
                 android:layout_marginStart="8dp"
                 android:background="#c47c07"
 
-                android:text="Go Child"
+                android:text="Child App"
 
                 android:textColor="#FFF"
                 android:textSize="16dp" />

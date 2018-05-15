@@ -1,4 +1,4 @@
-package aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App._Check
+package aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.Algorithm
 
 import aldwin.tablante.com.appblock.Account.AppBlock.Model.myDevice
 import android.util.Log

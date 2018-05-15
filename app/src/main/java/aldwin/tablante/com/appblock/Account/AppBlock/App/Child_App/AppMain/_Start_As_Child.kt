@@ -3,8 +3,8 @@ package aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.AppMain
 import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.Component.FireBase._setData
 import aldwin.tablante.com.appblock.Account.AppBlock.Model.myDevice
 import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.Device.DeviceProvider
-import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App._Check.DeviceChild
-import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App._Check.checkId
+import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.Algorithm.DeviceChild
+import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.Algorithm.checkId
 import aldwin.tablante.com.appblock.Account.Fetcher._accountFetcher
 import aldwin.tablante.com.appblock.Account.Model.User
 import aldwin.tablante.com.appblock.R
@@ -93,7 +93,7 @@ class _Start_As_Child : AppCompatActivity() {
         override fun doInBackground(vararg p0: Void?): Void? {
             parent = DeviceProvider().fetchInfo("")
             Thread.sleep(2000)
-            usersId = _accountFetcher().fetchParenthWithCode(ccod!!.text.toString(), username!!.text.toString(), password!!.text.toString())
+            usersId = _accountFetcher().fetchParentWithUser(ccod!!.text.toString(), username!!.text.toString(), password!!.text.toString())
             Thread.sleep(3000)
             publishProgress()
 
