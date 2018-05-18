@@ -5,13 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+
+    >
 
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
         android:layout_marginBottom="312dp"
         android:orientation="vertical"
@@ -22,12 +23,12 @@
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#c47c07"
+            android:background="#0f95dd"
             android:text="My Devices"
             android:textAlignment="center"
             android:textColor="#FFF"
             android:textSize="24dp"
-            android:textStyle="italic"
+
 
             />
 
@@ -36,7 +37,7 @@
             android:id="@+id/recycle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:background="#FFF"
 
             />
 

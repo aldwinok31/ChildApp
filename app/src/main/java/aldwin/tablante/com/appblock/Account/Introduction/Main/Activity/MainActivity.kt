@@ -1,6 +1,6 @@
 package aldwin.tablante.com.appblock.Account.Introduction.Main.Activity
 
-import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.AppMain._Start_As_Child
+import aldwin.tablante.com.appblock.Account.AppBlock.App.Child_App.AppMain.Child_app
 import aldwin.tablante.com.appblock.R
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         this.gochild!!.setOnClickListener {
             val intent = Intent(this,
-                    _Start_As_Child::class.java)
+                    Child_app::class.java)
             startActivity(intent)
 
         }

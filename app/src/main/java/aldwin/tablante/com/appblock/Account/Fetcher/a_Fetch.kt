@@ -37,34 +37,6 @@ class a_Fetch() {
         return acclist
     }
 
-    fun getAccount(id: String): deviceInfo {
-        var user: deviceInfo? = null
-
-        var data = FirebaseDatabase.getInstance()
-        var ref = data.getReference("Accounts").child(id).child("Devices")
-
-        ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot?) {
-                if (p0!!.exists()) {
-
-                    user = p0!!.getValue(deviceInfo::class.java)
-
-
-                }
-            }
-
-            override fun onCancelled(p0: DatabaseError?) {
-                Log.d("ERROR", "ERROR")
-            }
-
-
-        })
-
-
-        return user!!
-
-
-    }
 
     fun getAccountDevices(id:String): ArrayList<myDevice> {
 

@@ -29,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="182dp"
-                android:layout_height="182dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_gravity="center" />
 
             <TextView
@@ -38,7 +38,7 @@
                 android:layout_width="191dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="AppBlock"
+                android:text="AppLock"
                 android:textAlignment="center"
                 android:textColor="#FFF"
                 android:textSize="32dp" />
@@ -53,7 +53,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="76dp" />
+                android:layout_height="181dp" />
 
             <Button
                 android:id="@+id/button"

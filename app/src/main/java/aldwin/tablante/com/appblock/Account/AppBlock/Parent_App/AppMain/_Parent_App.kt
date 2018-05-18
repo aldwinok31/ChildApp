@@ -21,7 +21,7 @@ class _Parent_App: AppCompatActivity() {
     val manager = supportFragmentManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.parent_app1)
+        setContentView(R.layout.activity_parent_layout)
 
 
         val iin = intent
@@ -58,7 +58,7 @@ fun initialize(){
 val transaction = manager.beginTransaction()
         val fragment = Fragment_First()
         fragment.arguments = bundle
-        transaction.replace(R.id.holderfrag,fragment)
+        transaction.replace(R.id.frag,fragment)
         transaction.addToBackStack(null)
         transaction.commit()
 

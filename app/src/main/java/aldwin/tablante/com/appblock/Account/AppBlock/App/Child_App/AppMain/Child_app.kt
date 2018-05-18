@@ -18,6 +18,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import kotlinx.android.synthetic.main.child_app.*
 
 import kotlin.collections.ArrayList
 
@@ -25,8 +26,11 @@ import kotlin.collections.ArrayList
 /**
  * Created by Bobby on 06/05/2018.
  */
-class _Start_As_Child : AppCompatActivity() {
+class Child_app : AppCompatActivity() {
     private var bool = false
+    private var text= ""
+    private var valuetointent=""
+    private var arrintent : ArrayList<String> = ArrayList()
     private var parent: myDevice? = null
     private var username: EditText? = null
     private var progress: ProgressBar? = null
@@ -35,8 +39,8 @@ class _Start_As_Child : AppCompatActivity() {
     private var gochild: Button? = null
     private var boolist: ArrayList<checkId> = ArrayList()
     private var loader: Loader? = null
-    private var startservice:Button? = null
-    private var usersId :ArrayList<User> = ArrayList()
+    private var startservice: Button? = null
+    private var usersId: ArrayList<User> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +48,7 @@ class _Start_As_Child : AppCompatActivity() {
 
 
 
-
+        parent = DeviceProvider().fetchInfo("")
         initializer()
 
     }
@@ -61,10 +65,17 @@ class _Start_As_Child : AppCompatActivity() {
 
         this.startservice!!.setOnClickListener {
 
+            val intent = Intent(this@Child_app, TrackerService::class.java)
+            var data = ""
+            var data2 = ""
+            data = valuetointent
 
-            startService(Intent(this, TrackerService::class.java))
+
+           intent.putStringArrayListExtra("userids",arrintent)
+           intent.putExtra("value",data)
+            startService(intent)
+
             finish()
-
 
 
         }
@@ -100,32 +111,43 @@ class _Start_As_Child : AppCompatActivity() {
         override fun onPreExecute() {
             super.onPreExecute()
             progress!!.visibility = View.VISIBLE
-            Toast.makeText(this@_Start_As_Child, "Checking Data",
+            Toast.makeText(this@Child_app, "Checking Data",
                     Toast.LENGTH_SHORT).show()
         }
 
         override fun doInBackground(vararg p0: Void?): Void? {
+
             parent = DeviceProvider().fetchInfo("")
             Thread.sleep(2000)
             usersId = _accountFetcher().fetchParentWithUser(ccod!!.text.toString(), username!!.text.toString(), password!!.text.toString())
             Thread.sleep(3000)
-            publishProgress()
 
 
-if(usersId.isNotEmpty()) {
-    boolist = DeviceChild().hasExist(usersId[0].accID, parent!!.ID)
-    Thread.sleep(2000)
 
-    publishProgress()
+            if (usersId.isNotEmpty()) {
+                boolist = DeviceChild().hasExist(usersId[0].accID, parent!!.ID)
+                valuetointent = usersId[0].accID
+                arrintent.add(valuetointent)
+                Thread.sleep(2000)
+                text = "SuccessFully Saved Into :"
+                publishProgress()
+                if (!boolist[0]!!.bool && !boolist[0]!!.id.equals("") && boolist.isNotEmpty()) {
+                    _setData()._setDataFirebase(parent!!, boolist[0]!!.id)
 
-    if (!boolist[0]!!.bool && !boolist[0]!!.id.equals("") && boolist.isNotEmpty()) {
-        _setData()._setDataFirebase(parent!!, boolist[0]!!.id)
+                    bool = true
 
-    }
+                }
+                else{
+
+                    text = "Success: "
+                }
 
 
-}
+            }
+            else{
 
+                text = "Failed to Save :"
+            }
 
 
             return null
@@ -133,14 +155,21 @@ if(usersId.isNotEmpty()) {
 
         override fun onProgressUpdate(vararg values: Void?) {
             super.onProgressUpdate(*values)
-            Toast.makeText(this@_Start_As_Child, usersId[0].Firstname.toString() ,Toast.LENGTH_SHORT).show()
+
+            Toast.makeText(this@Child_app,text , Toast.LENGTH_SHORT).show()
 
         }
 
 
         override fun onPostExecute(result: Void?) {
             super.onPostExecute(result)
-            Toast.makeText(this@_Start_As_Child, "Saved",
+
+            if(bool){
+
+
+                startservice!!.isEnabled = true
+            }
+            Toast.makeText(this@Child_app, "Finish",
                     Toast.LENGTH_SHORT).show()
             progress!!.visibility = View.INVISIBLE
         }

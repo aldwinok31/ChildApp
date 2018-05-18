@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.os.Bundle
 import android.os.IBinder
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
@@ -23,15 +24,43 @@ import com.google.firebase.database.*
 
 class TrackerService : Service() {
     private val TAG = TrackerService::class.java.simpleName
-
+    private var parentid = ""
+    private var parentidlist : ArrayList<String> = ArrayList()
     override fun onBind(intent: Intent): IBinder? {
+
+        val iin = intent
+        var b : Bundle = iin!!.extras
+        parentid = b.getString("value")
+
         return null
     }
 
+
     override fun onCreate() {
         super.onCreate()
-        buildNotification()
-        requestLocationUpdates()
+
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val iin = intent
+        var b : Bundle = iin!!.extras
+        parentid = b.getString("value")
+        parentidlist = b.getStringArrayList("userids")
+       var count = 0
+        if(parentidlist.isNotEmpty()) {
+            while (parentidlist.size > count) {
+
+                buildNotification()
+                requestLocationUpdates(parentidlist[count])
+                count++
+            }
+        }
+        else{
+
+            Toast.makeText(applicationContext," Failed ",Toast.LENGTH_SHORT).show()
+
+        }
+        return super.onStartCommand(intent, flags, startId)
     }
 
     private fun buildNotification() {
@@ -54,7 +83,7 @@ class TrackerService : Service() {
 
 
 
-    private fun requestLocationUpdates() {
+    private fun requestLocationUpdates(id:String) {
         val request = LocationRequest()
         request.interval = 10000
         request.fastestInterval = 5000
@@ -69,8 +98,9 @@ class TrackerService : Service() {
         var database: FirebaseDatabase
         var dataref: DatabaseReference
         database = FirebaseDatabase.getInstance()
-        dataref = database.getReference("Accounts").child("-LCD262HxzMoMdK0aqdM").child("Devices")
 
+        dataref = database.getReference("Accounts").child(id).child("Devices")
+        Toast.makeText(applicationContext,parentid.toString(),Toast.LENGTH_LONG).show()
         val permission = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
         if (permission == PackageManager.PERMISSION_GRANTED) {
@@ -80,7 +110,8 @@ class TrackerService : Service() {
                     if (location != null) {
 
                         dataref.child(serial).child("Locations").setValue(location)
-                        Toast.makeText(applicationContext,serial.toString(),Toast.LENGTH_SHORT).show()
+                       // Toast.makeText(applicationContext," Latitude : "+ location.latitude.toString() + " \n "+
+                         //      " Longitude: " +location.longitude.toString() ,Toast.LENGTH_SHORT).show()
                     }
                 }
             }, null)

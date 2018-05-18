@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 
-class Fragment_Settings:Fragment() {
+class Fragment_Map:Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
     }
