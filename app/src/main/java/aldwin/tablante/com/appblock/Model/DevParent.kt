@@ -1,4 +1,4 @@
-package aldwin.tablante.com.appblock.Account.AppBlock.Model
+package aldwin.tablante.com.appblock.Model
 
 class DevParent(accId: String, firstName: String, lastName: String, code: String) {
 

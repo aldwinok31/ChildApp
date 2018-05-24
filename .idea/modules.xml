@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AppBlock.iml" filepath="$PROJECT_DIR$/AppBlock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AppBlockCapstone.iml" filepath="$PROJECT_DIR$/AppBlockCapstone.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

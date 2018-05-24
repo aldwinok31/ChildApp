@@ -1,4 +1,4 @@
-package aldwin.tablante.com.appblock.Account.AppBlock.Model
+package aldwin.tablante.com.appblock.Model
 
 class myDevice(MODEL:String,ID : String) {
    var MODEL = MODEL

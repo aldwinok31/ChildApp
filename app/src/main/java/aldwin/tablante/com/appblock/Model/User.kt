@@ -1,8 +1,5 @@
-package aldwin.tablante.com.appblock.Account.Model
+package aldwin.tablante.com.appblock.Model
 
-/**
- * Created by Bobby on 03/05/2018.
- */
 class User(accID: String, username: String, password: String, email: String, code: String, fname: String, lname: String) {
 
     var username = username
