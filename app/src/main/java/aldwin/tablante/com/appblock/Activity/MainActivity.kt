@@ -8,7 +8,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.content.pm.PackageManager
 import aldwin.tablante.com.appblock.Activity.MainActivity
+import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
+import android.content.Context
 import android.renderscript.RenderScript
 
 

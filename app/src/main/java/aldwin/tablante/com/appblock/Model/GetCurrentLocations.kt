@@ -10,8 +10,7 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 
 class GetCurrentLocations {
 
@@ -22,7 +21,7 @@ class GetCurrentLocations {
         request.fastestInterval = 5000
         request.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         val blue: BluetoothAdapter
-       blue = BluetoothAdapter.getDefaultAdapter()
+        blue = BluetoothAdapter.getDefaultAdapter()
         val bluetoothName = blue.name
         val client = LocationServices.getFusedLocationProviderClient(context)
         val model = android.os.Build.MODEL
@@ -45,12 +44,29 @@ class GetCurrentLocations {
                     if (location != null) {
                         if (id != "") {
 
-                            var ref = database.getReference("Accounts").child(id).child("Devices").child(serial).child("Locations")
+                            var ref = database.getReference("Accounts").child(id).child("Devices").child(serial)
 
-                            ref.setValue(location)
+                            ref.addValueEventListener(object : ValueEventListener {
+
+                                override fun onCancelled(p0: DatabaseError?) {
+//232131
+                                }
+
+                                override fun onDataChange(p0: DataSnapshot?) {
+                                    if (p0!!.hasChild("Loacations")) {
+                                        var loca: HashMap<String, Any>? = HashMap()
+                                        loca!!.put("Locations",location)
+                                        p0.ref.child(id).child("Devices").child(serial).updateChildren(loca)
+                                    }
+                                    else{
+                                        ref.child("Locations").setValue(location)
+
+                                    }
+                                }
+                            })
                             dataref.child("Locations").setValue(location)
-                            dataref.child("ParentList").child(id).setValue(id)
-                            dataref.child("ParentList").child(id).child("Connection").setValue("Paired")
+                           dataref.child("ParentList").child(id).setValue(id)
+                           dataref.child("ParentList").child(id).child("Connection").setValue("Paired")
                             GetRunningApps().sendData(context, id, serial)
 
 
@@ -71,5 +87,6 @@ class GetCurrentLocations {
             Toast.makeText(context, " Not Found", Toast.LENGTH_LONG).show()
 
         }
+        
     }
 }

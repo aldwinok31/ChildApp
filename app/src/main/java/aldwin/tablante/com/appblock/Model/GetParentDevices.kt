@@ -16,7 +16,7 @@ class GetParentDevices {
                 parentid = android.os.Build.SERIAL
                 var count = 0
                 parentidlist = fetchData().fetchParent(parentid)
-                Thread.sleep(3000)
+
                 publishProgress()
                 mContext = p0[0]
                 if (parentidlist.isNotEmpty()) {
