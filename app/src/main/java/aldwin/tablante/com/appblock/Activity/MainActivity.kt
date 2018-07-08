@@ -1,17 +1,15 @@
 package aldwin.tablante.com.appblock.Activity
 
 import aldwin.tablante.com.appblock.R
-import aldwin.tablante.com.appblock.TrackerService
+import aldwin.tablante.com.appblock.Service.TrackerService
 import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.content.pm.PackageManager
-import aldwin.tablante.com.appblock.Activity.MainActivity
-import android.app.admin.DevicePolicyManager
-import android.content.ComponentName
-import android.content.Context
-import android.renderscript.RenderScript
+import com.google.firebase.storage.StorageMetadata
+import android.provider.MediaStore
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,8 +19,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var intent = Intent(this@MainActivity, TrackerService::class.java)
+                .setAction("enable_capture")
+
 
         startService(intent)
+
       finish()
 
     }

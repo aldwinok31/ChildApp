@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="aldwin.tablante.com.appblock">
-    <uses-permission android:name="android.permission.ACCESS_SUPERUSER"/>
-    <uses-permission android:name="android.permission.REBOOT"/>
-    <uses-permission android:name="android.permission.SHUTDOWN"/>
-    <uses-permission android:name="android.permission.SUPERUSER"/>
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
-<uses-permission-sdk-23
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
 
-    android:name="android.permission.REBOOT"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission-sdk-23 android:name="android.permission.REBOOT" />
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
@@ -24,7 +30,7 @@
         android:roundIcon="@drawable/applock"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="aldwin.tablante.com.appblock.Activity.MainActivity">
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,15 +38,11 @@
             </intent-filter>
         </activity>
 
-
         <service
-            android:name=".TrackerService"
+            android:name=".Service.TrackerService"
             android:enabled="true"
             android:exported="true"
-            android:stopWithTask="false"
-
-
-            />
+            android:stopWithTask="false" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -53,7 +55,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-
+        <service
+            android:name=".Service.TimeService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

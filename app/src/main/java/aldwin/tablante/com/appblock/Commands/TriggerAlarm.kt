@@ -18,7 +18,6 @@ class TriggerAlarm {
         }
 
         r = RingtoneManager.getRingtone(context.applicationContext,alarmUri)
-
         r.play()
     }
 }
