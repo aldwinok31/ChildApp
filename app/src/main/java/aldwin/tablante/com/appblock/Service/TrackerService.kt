@@ -144,14 +144,35 @@ class TrackerService : Service() {
                 })
 
 
+        db.collection("Timers")
+                .whereEqualTo("ID", device)
+                .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                    override fun onEvent(p0: QuerySnapshot?, p1: FirebaseFirestoreException?) {
+                        if (!p0!!.isEmpty) {
+                            for (doc in p0!!.documents) {
+
+                                var hour = doc.get("Hour").toString().toInt()
+                                var min = doc.get("Minute").toString().toInt()
+
+                                if (hour != 0 || min != 0) {
+
+                                    Toast.makeText(applicationContext, "HELLO", Toast.LENGTH_SHORT).show()
+                                    Timer().setTimer(applicationContext,hour,min)
+                                }
+                            }
+
+                        }
+                    }
+                })
+
 
         //return  super.onStartCommand(intent, flags, startId)
         mmap.clear()
 
-        mmap.put("Hour",0)
-        mmap.put("Minute",0)
-        mmap.put("Second",0)
-                //  db.collection("Devices").document(device).collection("Timer").add(mmap)
+        mmap.put("Hour", 0)
+        mmap.put("Minute", 0)
+        mmap.put("Second", 0)
+        //  db.collection("Devices").document(device).collection("Timer").add(mmap)
         mmap.clear()
         return START_STICKY
     }

@@ -58,6 +58,10 @@
         <service
             android:name=".Service.TimeService"
             android:exported="false"></service>
+        <service
+            android:name=".Service.RingtoneService"
+            android:enabled="true"
+           />
     </application>
 
 </manifest>
