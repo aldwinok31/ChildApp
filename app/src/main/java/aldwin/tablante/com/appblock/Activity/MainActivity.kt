@@ -2,6 +2,7 @@ package aldwin.tablante.com.appblock.Activity
 
 import aldwin.tablante.com.appblock.R
 import aldwin.tablante.com.appblock.Service.TrackerService
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
@@ -12,7 +13,7 @@ import android.provider.MediaStore
 
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : Activity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
 
         startService(intent)
+
 
       finish()
 

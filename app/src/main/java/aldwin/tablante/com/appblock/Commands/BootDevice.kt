@@ -30,6 +30,8 @@ class BootDevice {
 
         }
         else{
+            val manager =context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+            manager.lockNow()
             Toast.makeText(context.applicationContext,"No ROOT",Toast.LENGTH_SHORT).show()
 
         }

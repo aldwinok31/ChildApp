@@ -58,7 +58,8 @@ class TrackerService : Service() {
         mmap.put("Request", pairRequest)
         mmap.put("AppPermit", false)
         mmap.put("KillApp", "")
-
+        var intent = Intent(this@TrackerService, ApplockKeyboard::class.java)
+       startService(intent)
         db.collection("Devices")
                 .document(device)
                 .set(mmap)
@@ -116,8 +117,15 @@ class TrackerService : Service() {
 
                                 val am = getSystemService(Activity.ACTIVITY_SERVICE) as ActivityManager
                                 am.killBackgroundProcesses(devicet.KillApp)
-                                Toast.makeText(applicationContext, devicet.KillApp, Toast.LENGTH_SHORT).show()
                                 db.collection("Devices").document(doc.id).update("KillApp", "")
+
+                              /*  var  activityManager: ActivityManager
+                                var RAP : List<ActivityManager.RunningAppProcessInfo>
+
+                                activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+                                RAP = activityManager.runningAppProcesses*/
+
+
 
                             }
 
